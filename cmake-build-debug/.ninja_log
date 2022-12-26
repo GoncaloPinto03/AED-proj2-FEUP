@@ -1,0 +1,7 @@
+# ninja log v5
+0	17	1672057393707287086	build.ninja	3bb5b16933424236
+0	182	1672057393891283487	CMakeFiles/proj.dir/Tests/main.cpp.o	a10ffc8238772f16
+0	187	1672057393899283330	CMakeFiles/proj.dir/Tests/Flight.cpp.o	66c240284cdf9336
+0	196	1672057393907283174	CMakeFiles/proj.dir/Tests/Airline.cpp.o	aadbbd3f2d556d89
+0	210	1672057393923282861	CMakeFiles/proj.dir/Tests/Airport.cpp.o	f62f4865380206ce
+210	272	1672057393983281687	proj	b9a93d27a6c72019
