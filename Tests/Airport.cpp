@@ -4,6 +4,15 @@
 
 #include "Airport.h"
 
+Airport::Airport() {
+    this->code = "";
+    this->name = "";
+    this->city = "";
+    this->country = "";
+    this->latitude = 0.0;
+    this->longitude = 0.0;
+}
+
 Airport::Airport(string code, string name, string city, string country, float latitude, float longitude) {
     this->code = code;
     this->name = name;
@@ -13,27 +22,51 @@ Airport::Airport(string code, string name, string city, string country, float la
     this->longitude = longitude;
 }
 
-const string Airport::getCode() const {
+string Airport::getCode() const {
     return code;
 }
 
-const string Airport::getName() const {
+string Airport::getName() const {
     return name;
 }
 
-const string Airport::getCity() const {
+string Airport::getCity() const {
     return city;
 }
 
-const string Airport::getCountry() const {
+string Airport::getCountry() const {
     return country;
 }
 
-const float Airport::getLatitude() const {
+float Airport::getLatitude() const {
     return latitude;
 }
 
-const float Airport::getLongitude() const {
+float Airport::getLongitude() const {
     return longitude;
+}
+
+void Airport::setCode(string code2) {
+    this->code = code2;
+}
+
+void Airport::setName(string name2) {
+    this->name = name2;
+}
+
+void Airport::setCity(string city2) {
+    this->city = city2;
+}
+
+void Airport::setCountry(string country2) {
+    this->country = country2;
+}
+
+void Airport::setLatitude(float latitude2) {
+    this->latitude = latitude2;
+}
+
+void Airport::setLongitude(float longitude2) {
+    this->longitude = longitude2;
 }
 

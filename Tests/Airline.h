@@ -16,12 +16,18 @@ class Airline {
     string callsign;
     string country;
 public:
+    Airline();
     Airline(string code, string name, string callsign, string country);
-    const string getCode() const;
-    const string getName() const;
-    const string getCallsign() const;
-    const string getCountry() const;
+    string getCode() const;
+    string getName() const;
+    string getCallsign() const;
+    string getCountry() const;
+    void setCode(string code2);
+    void setName(string name2);
+    void setCallsign(string callsign2);
+    void setCountry(string country2);
 };
+
 
 
 #endif //PROJ_AIRLINE_H

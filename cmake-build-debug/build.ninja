@@ -49,12 +49,6 @@ cmake_ninja_workdir = /home/gpinto03/FEUP/2º$ Ano/1º$ Semestre/Algoritmos$ e$ 
 
 build cmake_object_order_depends_target_proj: phony || CMakeFiles/proj.dir
 
-build CMakeFiles/proj.dir/Tests/main.cpp.o: CXX_COMPILER__proj_Debug /home/gpinto03/FEUP/2º$ Ano/1º$ Semestre/Algoritmos$ e$ Estruturas$ de$ Dados/PROJ2/proj/Tests/main.cpp || cmake_object_order_depends_target_proj
-  DEP_FILE = CMakeFiles/proj.dir/Tests/main.cpp.o.d
-  FLAGS = -g -fdiagnostics-color=always
-  OBJECT_DIR = CMakeFiles/proj.dir
-  OBJECT_FILE_DIR = CMakeFiles/proj.dir/Tests
-
 build CMakeFiles/proj.dir/Tests/Airport.cpp.o: CXX_COMPILER__proj_Debug /home/gpinto03/FEUP/2º$ Ano/1º$ Semestre/Algoritmos$ e$ Estruturas$ de$ Dados/PROJ2/proj/Tests/Airport.cpp || cmake_object_order_depends_target_proj
   DEP_FILE = CMakeFiles/proj.dir/Tests/Airport.cpp.o.d
   FLAGS = -g -fdiagnostics-color=always
@@ -73,6 +67,12 @@ build CMakeFiles/proj.dir/Tests/Flight.cpp.o: CXX_COMPILER__proj_Debug /home/gpi
   OBJECT_DIR = CMakeFiles/proj.dir
   OBJECT_FILE_DIR = CMakeFiles/proj.dir/Tests
 
+build CMakeFiles/proj.dir/Tests/Main.cpp.o: CXX_COMPILER__proj_Debug /home/gpinto03/FEUP/2º$ Ano/1º$ Semestre/Algoritmos$ e$ Estruturas$ de$ Dados/PROJ2/proj/Tests/Main.cpp || cmake_object_order_depends_target_proj
+  DEP_FILE = CMakeFiles/proj.dir/Tests/Main.cpp.o.d
+  FLAGS = -g -fdiagnostics-color=always
+  OBJECT_DIR = CMakeFiles/proj.dir
+  OBJECT_FILE_DIR = CMakeFiles/proj.dir/Tests
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target proj
@@ -81,7 +81,7 @@ build CMakeFiles/proj.dir/Tests/Flight.cpp.o: CXX_COMPILER__proj_Debug /home/gpi
 #############################################
 # Link the executable proj
 
-build proj: CXX_EXECUTABLE_LINKER__proj_Debug CMakeFiles/proj.dir/Tests/main.cpp.o CMakeFiles/proj.dir/Tests/Airport.cpp.o CMakeFiles/proj.dir/Tests/Airline.cpp.o CMakeFiles/proj.dir/Tests/Flight.cpp.o
+build proj: CXX_EXECUTABLE_LINKER__proj_Debug CMakeFiles/proj.dir/Tests/Airport.cpp.o CMakeFiles/proj.dir/Tests/Airline.cpp.o CMakeFiles/proj.dir/Tests/Flight.cpp.o CMakeFiles/proj.dir/Tests/Main.cpp.o
   FLAGS = -g
   OBJECT_DIR = CMakeFiles/proj.dir
   POST_BUILD = :

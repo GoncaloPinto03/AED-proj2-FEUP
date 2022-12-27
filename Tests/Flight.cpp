@@ -4,20 +4,40 @@
 
 #include "Flight.h"
 
+Flight::Flight() {
+    this->source = "";
+    this->target = "";
+    this->airline = "";
+}
+
 Flight::Flight(string source, string target, string airline) {
     this->source = source;
     this->target = target;
     this->airline = airline;
 }
 
-const string Flight::getSource() const {
+string Flight::getSource() const {
     return source;
 }
 
-const string Flight::getTarget() const {
+string Flight::getTarget() const {
     return target;
 }
 
-const string Flight::getAirline() const {
+string Flight::getAirline() const {
     return airline;
 }
+
+void Flight::setSource(string source2) {
+    this->source = source2;
+}
+
+void Flight::setTarget(string target2) {
+    this->target = target2;
+}
+
+void Flight::setAirline(string airline2) {
+    this->airline = airline2;
+}
+
+

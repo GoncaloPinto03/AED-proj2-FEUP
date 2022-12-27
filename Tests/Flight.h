@@ -16,10 +16,14 @@ class Flight {
     string target;
     string airline;
 public:
+    Flight();
     Flight(string source, string target, string airline);
-    const string getSource() const;
-    const string getTarget() const;
-    const string getAirline() const;
+    string getSource() const;
+    string getTarget() const;
+    string getAirline() const;
+    void setSource(string source2);
+    void setTarget(string target2);
+    void setAirline(string airline2);
 };
 
 
