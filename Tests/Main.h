@@ -10,14 +10,17 @@
 #include "Flight.h"
 #include <iostream>
 #include <vector>
+#include <unordered_set>
 
 using namespace std;
 
 class Main {
 public:
-    static vector<Airline> readAirlines();
-    vector<Airport> readAirports();
+    static unordered_set<Airline, Airline::hAirline, Airline::eqAirline> readAirlines();
+    static unordered_set<Airport, Airport::hAirport, Airport::eqAirport> readAirports();
     vector<Flight> readFlights();
+    static void printAirlines(unordered_set<Airline, Airline::hAirline, Airline::eqAirline> airlines);
+    static void printAirports(unordered_set<Airport, Airport::hAirport, Airport::eqAirport> airports);
 };
 
 

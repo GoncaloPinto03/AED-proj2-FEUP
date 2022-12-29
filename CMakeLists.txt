@@ -3,4 +3,4 @@ project(proj)
 
 set(CMAKE_CXX_STANDARD 17)
 
-add_executable(proj Tests/Airport.cpp Tests/Airport.h Tests/Airline.cpp Tests/Airline.h Tests/Flight.cpp Tests/Flight.h Tests/Main.cpp Tests/Main.h)
+add_executable(proj Tests/Airport.cpp Tests/Airport.h Tests/Airline.cpp Tests/Airline.h Tests/Flight.cpp Tests/Flight.h Tests/Main.cpp Tests/Main.h Tests/Graph.h Tests/Graph.cpp)

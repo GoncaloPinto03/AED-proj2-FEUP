@@ -1,17 +1,22 @@
 #include "Main.h"
 #include <iostream>
 #include <fstream>
+#include <unordered_set>
+#include "Airport.h"
+#include "Airline.h"
 
 using namespace std;
 
-vector<Airline> Main::readAirlines() {
-    string filename = "airlines.csv";
+unordered_set<Airline, Airline::hAirline, Airline::eqAirline> Main::readAirlines() {
+
+    unordered_set<Airline, Airline::hAirline, Airline::eqAirline> airlinesSet;
+
+    string filename = "../dataset/airlines.csv";
     Airline airline;
     string code;
     string name;
     string callsign;
     string country;
-    vector<Airline> airlines;
     string dummy;
 
     ifstream input = ifstream(filename, ios_base::in);
@@ -28,30 +33,74 @@ vector<Airline> Main::readAirlines() {
             airline.setCallsign(callsign);
             airline.setCountry(country);
 
-            airlines.push_back(airline);
+            airlinesSet.insert(airline);
         }
     }
     else {
         cout << "ERROR: File Not Open" << '\n';
     }
     input.close();
-    return airlines;
+    return airlinesSet;
 }
 
 
-vector<Airport> Main::readAirports() {
-    return vector<Airport>();
+unordered_set<Airport, Airport::hAirport, Airport::eqAirport> Main::readAirports() {
+    unordered_set<Airport, Airport::hAirport, Airport::eqAirport> airportSet;
+
+    string filename = "../dataset/airports.csv";
+    Airport airport;
+    string code;
+    string name;
+    string city;
+    string country;
+    string latitude;
+    string longitude;
+    string dummy;
+
+    ifstream input = ifstream(filename, ios_base::in);
+    if (input.is_open()) {
+        getline(input, dummy);
+        while (input.good()) {
+            getline(input, code, ',');
+            getline(input, name, ',');
+            getline(input, city, ',');
+            getline(input, country, ',');
+            getline(input, latitude, ',');
+            getline(input, longitude, '\n');
+
+            airport.setCode(code);
+            airport.setName(name);
+            airport.setCity(city);
+            airport.setCountry(country);
+            airport.setLatitude(latitude);
+            airport.setLongitude(longitude);
+
+            airportSet.insert(airport);
+        }
+    }
+    else {
+        cout << "ERROR: File Not Open" << '\n';
+    }
+    input.close();
+    return airportSet;
 }
 
 vector<Flight> Main::readFlights() {
     return vector<Flight>();
 }
 
-void printAirlines(vector<Airline> airlines) {
+void Main::printAirlines(unordered_set<Airline, Airline::hAirline, Airline::eqAirline> airlines) {
     for (auto &i : airlines) {
         cout << i.getCode() << ", " << i.getName() << ", " << i.getCallsign() << ", " << i.getCountry() << "\n";
     }
 }
+
+void Main::printAirports(unordered_set<Airport, Airport::hAirport, Airport::eqAirport> airports) {
+    for (auto &i : airports) {
+        cout << i.getCode() << ", " << i.getName() << ", " << i.getCity() << ", " << i.getCountry() << ", " << i.getLatitude() << ", " << i.getLongitude() << "\n";
+    }
+}
+
 
 int Menu() {
     int choice;
@@ -61,9 +110,8 @@ int Menu() {
         switch (choice) {
             case 0:
             {
-                vector<Airline> airlines = Main::readAirlines();
-                printAirlines(airlines);
-                //cout << "SATA, TAP, RYANAIR, EASYJET";
+                unordered_set<Airline, Airline::hAirline, Airline::eqAirline> airlines = Main::readAirlines();
+                Main::printAirlines(airlines);
                 break;
             }
             case 1:
@@ -74,6 +122,8 @@ int Menu() {
             case 2:
             {
                 cout << "Aeroportos";
+                unordered_set<Airport, Airport::hAirport, Airport::eqAirport> airports = Main::readAirports();
+                Main::printAirports(airports);
                 break;
             }
             case 3:

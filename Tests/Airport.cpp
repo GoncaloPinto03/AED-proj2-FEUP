@@ -9,11 +9,11 @@ Airport::Airport() {
     this->name = "";
     this->city = "";
     this->country = "";
-    this->latitude = 0.0;
-    this->longitude = 0.0;
+    this->latitude = "";
+    this->longitude = "";
 }
 
-Airport::Airport(string code, string name, string city, string country, float latitude, float longitude) {
+Airport::Airport(string code, string name, string city, string country, string latitude, string longitude) {
     this->code = code;
     this->name = name;
     this->city = city;
@@ -38,11 +38,11 @@ string Airport::getCountry() const {
     return country;
 }
 
-float Airport::getLatitude() const {
+string Airport::getLatitude() const {
     return latitude;
 }
 
-float Airport::getLongitude() const {
+string Airport::getLongitude() const {
     return longitude;
 }
 
@@ -62,11 +62,23 @@ void Airport::setCountry(string country2) {
     this->country = country2;
 }
 
-void Airport::setLatitude(float latitude2) {
+void Airport::setLatitude(string latitude2) {
     this->latitude = latitude2;
 }
 
-void Airport::setLongitude(float longitude2) {
+void Airport::setLongitude(string longitude2) {
     this->longitude = longitude2;
 }
 
+int Airport::hAirport::operator()(const Airport &airport) const {
+    string code = airport.getCode();
+    int hashCode = 0;
+    for (int i = 0; i < code.length(); i++) {
+        hashCode += code[i] * pow(31, i);
+    }
+    return hashCode;
+}
+
+bool Airport::eqAirport::operator()(const Airport &a1, const Airport &a2) const {
+    return a1.getCode()==a2.getCode();
+}

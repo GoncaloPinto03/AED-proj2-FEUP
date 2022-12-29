@@ -50,7 +50,16 @@ void Airline::setCountry(string country2) {
     this->country = country2;
 }
 
+int Airline::hAirline::operator()(const Airline &airline) const {
+    string code = airline.getCode();
+    int hashCode = 0;
+    for (int i = 0; i < code.length(); i++) {
+        hashCode += code[i] * pow(31, i);
+    }
+    return hashCode;
+}
 
+bool Airline::eqAirline::operator()(const Airline &a1, const Airline &a2) const {
+    return a1.getCode()==a1.getCode();
 
-
-
+}

@@ -3,6 +3,7 @@
 //
 #include <iostream>
 #include <string>
+#include <cmath>
 
 using namespace std;
 
@@ -15,23 +16,30 @@ class Airport {
     string name;
     string city;
     string country;
-    float latitude;
-    float longitude;
+    string latitude;
+    string longitude;
 public:
     Airport();
-    Airport(string code, string name, string city, string country, float latitude, float longitude);
+    Airport(string code, string name, string city, string country, string latitude, string longitude);
     string getCode() const;
     string getName() const;
     string getCity() const;
     string getCountry() const;
-    float getLatitude() const;
-    float getLongitude() const;
+    string getLatitude() const;
+    string getLongitude() const;
     void setCode(string code2);
     void setName(string name2);
     void setCity(string city2);
     void setCountry(string country2);
-    void setLatitude(float latitude2);
-    void setLongitude(float longitude2);
+    void setLatitude(string latitude2);
+    void setLongitude(string longitude2);
+
+    struct hAirport {
+        int operator() (const Airport& airport) const;
+    };
+    struct eqAirport {
+        bool operator() (const Airport& a1, const Airport& a2) const;
+    };
 };
 
 

@@ -3,6 +3,7 @@
 //
 #include <iostream>
 #include <string>
+#include <cmath>
 
 using namespace std;
 
@@ -26,6 +27,14 @@ public:
     void setName(string name2);
     void setCallsign(string callsign2);
     void setCountry(string country2);
+
+    struct hAirline {
+        int operator() (const Airline& airline) const;
+    };
+    struct eqAirline {
+        bool operator() (const Airline& a1, const Airline& a2) const;
+    };
+
 };
 
 
