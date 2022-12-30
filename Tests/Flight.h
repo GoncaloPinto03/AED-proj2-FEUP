@@ -4,6 +4,7 @@
 
 #include <iostream>
 #include <string>
+#include <cmath>
 
 using namespace std;
 
@@ -24,6 +25,13 @@ public:
     void setSource(string source2);
     void setTarget(string target2);
     void setAirline(string airline2);
+
+    struct hFlight {
+        int operator() (const Flight& flight) const;
+    };
+    struct eqFlight {
+        bool operator() (const Flight& f1, const Flight& f2) const;
+    };
 };
 
 

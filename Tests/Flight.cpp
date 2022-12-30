@@ -40,4 +40,15 @@ void Flight::setAirline(string airline2) {
     this->airline = airline2;
 }
 
+int Flight::hFlight::operator()(const Flight &flight) const {
+    string code = flight.getSource()+flight.getTarget()+flight.getAirline();
+    int hashCode = 0;
+    for (int i = 0; i < code.length(); i++) {
+        hashCode += code[i] * pow(31, i);
+    }
+    return hashCode;
+}
 
+bool Flight::eqFlight::operator()(const Flight &f1, const Flight &f2) const {
+    return f1.getAirline()==f2.getAirline() && f1.getSource()==f2.getSource() && f1.getTarget()==f2.getTarget();
+}

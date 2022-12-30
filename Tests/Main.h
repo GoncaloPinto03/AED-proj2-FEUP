@@ -18,9 +18,10 @@ class Main {
 public:
     static unordered_set<Airline, Airline::hAirline, Airline::eqAirline> readAirlines();
     static unordered_set<Airport, Airport::hAirport, Airport::eqAirport> readAirports();
-    vector<Flight> readFlights();
+    static unordered_set<Flight , Flight::hFlight  , Flight::eqFlight  > readFlights() ;
     static void printAirlines(unordered_set<Airline, Airline::hAirline, Airline::eqAirline> airlines);
     static void printAirports(unordered_set<Airport, Airport::hAirport, Airport::eqAirport> airports);
+    static void printFlights (unordered_set<Flight , Flight::hFlight  , Flight::eqFlight  > flights);
 };
 
 
