@@ -45,7 +45,7 @@ unordered_set<Airline, Airline::hAirline, Airline::eqAirline> Main::readAirlines
 
 
 unordered_set<Airport, Airport::hAirport, Airport::eqAirport> Main::readAirports() {
-    unordered_set<Airport, Airport::hAirport, Airport::eqAirport> airportSet;
+    unordered_set<Airport, Airport::hAirport, Airport::eqAirport> airportsSet;
 
     string filename = "../dataset/airports.csv";
     Airport airport;
@@ -76,18 +76,18 @@ unordered_set<Airport, Airport::hAirport, Airport::eqAirport> Main::readAirports
             airport.setLatitude(latitude);
             airport.setLongitude(longitude);
 
-            airportSet.insert(airport);
+            airportsSet.insert(airport);
         }
     }
     else {
         cout << "ERROR: File Not Open" << '\n';
     }
     input.close();
-    return airportSet;
+    return airportsSet;
 }
 
 unordered_set<Flight, Flight::hFlight, Flight::eqFlight> Main::readFlights() {
-    unordered_set<Flight, Flight::hFlight, Flight::eqFlight> flightSet;
+    unordered_set<Flight, Flight::hFlight, Flight::eqFlight> flightsSet;
     string filename = "../dataset/flights.csv";
     Flight flight;
     string source;
@@ -109,16 +109,24 @@ unordered_set<Flight, Flight::hFlight, Flight::eqFlight> Main::readFlights() {
             flight.setTarget(target);
 
 
-            flightSet.insert(flight);
+            flightsSet.insert(flight);
         }
     }
     else {
         cout << "ERROR: File Not Open" << '\n';
     }
     input.close();
-    return flightSet;
+    return flightsSet;
 }
 
+unordered_set<City, City::hCity, City::eqCity> Main::readCities() {
+    unordered_set<City, City::hCity, City::eqCity> citiesSet;
+    for (auto &i : readAirports()) {
+        City city(i.getCity(), i.getCountry());
+        citiesSet.insert(city);
+    }
+    return citiesSet;
+}
 
 void Main::printAirlines(unordered_set<Airline, Airline::hAirline, Airline::eqAirline> airlines) {
     for (auto &i : airlines) {
@@ -137,10 +145,16 @@ void Main::printFlights(unordered_set<Flight , Flight::hFlight  , Flight::eqFlig
     }
 }
 
+void Main::printCities(unordered_set<City, City::hCity, City::eqCity> cities) {
+    for (auto &i : cities) {
+        cout << i.getName() << ", " << i.getCountry() << "\n";
+    }
+}
+
 int Menu() {
     int choice;
     do {
-        cout << "\n 0. Ver companhias aereas \n 1. Ver voos(Aviso:demora tempo aprox 2min) \n 2. Ver aeroportos \n 3. Mostrar percurso mais Rapido entre 2 Locais \n 4. Informacoes de aeroporto \n 5. Creditos\n 6. Exit\n\n";
+        cout << "\n 0. Ver companhias aereas \n 1. Ver voos(Aviso:demora tempo aprox 2min) \n 2. Ver aeroportos \n 3. Ver cidades \n 4. Mostrar percurso mais Rapido entre 2 Locais \n 4. Informacoes de aeroporto \n 6. Creditos\n 7. Exit\n\n";
         cin >> choice;
         switch (choice) {
             case 0:
@@ -157,30 +171,35 @@ int Menu() {
             }
             case 2:
             {
-                cout << "Aeroportos";
                 unordered_set<Airport, Airport::hAirport, Airport::eqAirport> airports = Main::readAirports();
                 Main::printAirports(airports);
                 break;
             }
             case 3:
             {
-                string partida, chegada;
-                cout << "Local de Partida :";
-                cin >> partida;
-                cout << "\nLocal de Chegada";
-                cin >> chegada;
+                unordered_set<City, City::hCity, City::eqCity> cities = Main::readCities();
+                Main::printCities(cities);
                 break;
             }
             case 4:
             {
-                string aeroporto;
-                cout<<"De que aeroporto pretende obter as informaçoes?";
-                cin>> aeroporto;
+                string partida, chegada;
+                cout << "Local de Partida: ";
+                cin >> partida;
+                cout << "\nLocal de Chegada: ";
+                cin >> chegada;
+                break;
             }
             case 5:
+            {
+                string aeroporto;
+                cout<<"De que aeroporto pretende obter as informaçoes? ";
+                cin>> aeroporto;
+            }
+            case 6:
                 cout << "Done by Goncalo Pinto, Miguel Figueiredo and Miguel Santos\n";
                 break;
-            case 6:
+            case 7:
                 return 0;
             default:
                 return 0;

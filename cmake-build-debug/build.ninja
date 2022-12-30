@@ -79,6 +79,12 @@ build CMakeFiles/proj.dir/Tests/Graph.cpp.o: CXX_COMPILER__proj_Debug /home/gpin
   OBJECT_DIR = CMakeFiles/proj.dir
   OBJECT_FILE_DIR = CMakeFiles/proj.dir/Tests
 
+build CMakeFiles/proj.dir/Tests/City.cpp.o: CXX_COMPILER__proj_Debug /home/gpinto03/FEUP/2º$ Ano/1º$ Semestre/Algoritmos$ e$ Estruturas$ de$ Dados/PROJ2/proj/Tests/City.cpp || cmake_object_order_depends_target_proj
+  DEP_FILE = CMakeFiles/proj.dir/Tests/City.cpp.o.d
+  FLAGS = -g -fdiagnostics-color=always
+  OBJECT_DIR = CMakeFiles/proj.dir
+  OBJECT_FILE_DIR = CMakeFiles/proj.dir/Tests
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target proj
@@ -87,7 +93,7 @@ build CMakeFiles/proj.dir/Tests/Graph.cpp.o: CXX_COMPILER__proj_Debug /home/gpin
 #############################################
 # Link the executable proj
 
-build proj: CXX_EXECUTABLE_LINKER__proj_Debug CMakeFiles/proj.dir/Tests/Airport.cpp.o CMakeFiles/proj.dir/Tests/Airline.cpp.o CMakeFiles/proj.dir/Tests/Flight.cpp.o CMakeFiles/proj.dir/Tests/Main.cpp.o CMakeFiles/proj.dir/Tests/Graph.cpp.o
+build proj: CXX_EXECUTABLE_LINKER__proj_Debug CMakeFiles/proj.dir/Tests/Airport.cpp.o CMakeFiles/proj.dir/Tests/Airline.cpp.o CMakeFiles/proj.dir/Tests/Flight.cpp.o CMakeFiles/proj.dir/Tests/Main.cpp.o CMakeFiles/proj.dir/Tests/Graph.cpp.o CMakeFiles/proj.dir/Tests/City.cpp.o
   FLAGS = -g
   OBJECT_DIR = CMakeFiles/proj.dir
   POST_BUILD = :
