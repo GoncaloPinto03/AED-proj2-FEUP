@@ -45,7 +45,9 @@ unordered_set<Airline, Airline::hAirline, Airline::eqAirline> Main::readAirlines
 
 
 unordered_set<Airport, Airport::hAirport, Airport::eqAirport> Main::readAirports() {
+
     unordered_set<Airport, Airport::hAirport, Airport::eqAirport> airportsSet;
+    Graph g(0, false);
 
     string filename = "../dataset/airports.csv";
     Airport airport;
@@ -77,8 +79,15 @@ unordered_set<Airport, Airport::hAirport, Airport::eqAirport> Main::readAirports
             airport.setLongitude(longitude);
 
             airportsSet.insert(airport);
+
+            g.addNode(airport);
+        }
+        unordered_set<Flight, Flight::hFlight, Flight::eqFlight> flights = readFlights();
+        for (auto &i : flights) {
+            g.addFlight(i);
         }
     }
+
     else {
         cout << "ERROR: File Not Open" << '\n';
     }
@@ -87,7 +96,9 @@ unordered_set<Airport, Airport::hAirport, Airport::eqAirport> Main::readAirports
 }
 
 unordered_set<Flight, Flight::hFlight, Flight::eqFlight> Main::readFlights() {
+
     unordered_set<Flight, Flight::hFlight, Flight::eqFlight> flightsSet;
+
     string filename = "../dataset/flights.csv";
     Flight flight;
     string source;
@@ -120,7 +131,9 @@ unordered_set<Flight, Flight::hFlight, Flight::eqFlight> Main::readFlights() {
 }
 
 unordered_set<City, City::hCity, City::eqCity> Main::readCities() {
+
     unordered_set<City, City::hCity, City::eqCity> citiesSet;
+
     for (auto &i : readAirports()) {
         City city(i.getCity(), i.getCountry());
         citiesSet.insert(city);
@@ -139,6 +152,7 @@ void Main::printAirports(unordered_set<Airport, Airport::hAirport, Airport::eqAi
         cout << i.getCode() << ", " << i.getName() << ", " << i.getCity() << ", " << i.getCountry() << ", " << i.getLatitude() << ", " << i.getLongitude() << "\n";
     }
 }
+
 void Main::printFlights(unordered_set<Flight , Flight::hFlight  , Flight::eqFlight  > flights){
     for (auto &i : flights) {
         cout << i.getSource() << ", " << i.getTarget() << ", " << i.getAirline() << "\n";
@@ -151,10 +165,11 @@ void Main::printCities(unordered_set<City, City::hCity, City::eqCity> cities) {
     }
 }
 
+
 int Menu() {
     int choice;
     do {
-        cout << "\n 0. Ver companhias aereas \n 1. Ver voos(Aviso:demora tempo aprox 2min) \n 2. Ver aeroportos \n 3. Ver cidades \n 4. Mostrar percurso mais Rapido entre 2 Locais \n 4. Informacoes de aeroporto \n 6. Creditos\n 7. Exit\n\n";
+        cout << "\n 0. Ver companhias aereas \n 1. Ver voos(Aviso:demora tempo aprox 2min) \n 2. Ver aeroportos \n 3. Ver cidades \n 4. Mostrar percurso mais Rapido entre 2 Locais \n 5. Informacoes de aeroporto \n 6. Creditos\n 7. Exit\n\n";
         cin >> choice;
         switch (choice) {
             case 0:

@@ -3,17 +3,21 @@
 
 #include <list>
 #include <vector>
+#include <queue>
 #include <iostream>
+#include "Airport.h"
+#include "Flight.h"
 
 using namespace std;
 
 class Graph {
     struct Edge {
         int dest;   // Destination node
-        int weight; // An integer weight
+        int weight;     // An integer weight
     };
 
     struct Node {
+        Airport airport;
         list<Edge> adj; // The list of outgoing edges (to adjacent nodes)
         bool visited;   // As the node been visited on a search?
     };
@@ -28,9 +32,16 @@ public:
 
     // Add edge from source to destination with a certain weight
     void addEdge(int src, int dest, int weight = 1);
+    void addNode(Airport airport);
+    void addFlight(const Flight &flight);
 
     // Depth-First Search: example implementation
     void dfs(int v);
+    // Breadth-First Search: example implementation
+    void bfs(int v);
 };
 
 #endif
+
+
+

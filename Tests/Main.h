@@ -9,6 +9,7 @@
 #include "Airport.h"
 #include "Flight.h"
 #include "City.h"
+#include "Graph.h"
 #include <iostream>
 #include <vector>
 #include <unordered_set>
@@ -16,6 +17,7 @@
 using namespace std;
 
 class Main {
+    Graph g;
 public:
     static unordered_set<Airline, Airline::hAirline, Airline::eqAirline> readAirlines();
     static unordered_set<Airport, Airport::hAirport, Airport::eqAirport> readAirports();
@@ -25,6 +27,7 @@ public:
     static void printAirports(unordered_set<Airport, Airport::hAirport, Airport::eqAirport> airports);
     static void printFlights(unordered_set<Flight, Flight::hFlight, Flight::eqFlight> flights);
     static void printCities(unordered_set<City, City::hCity, City::eqCity> cities);
+    void addGraphEdges();
 };
 
 
