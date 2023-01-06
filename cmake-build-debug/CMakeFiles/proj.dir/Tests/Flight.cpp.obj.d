@@ -1,6 +1,6 @@
 CMakeFiles/proj.dir/Tests/Flight.cpp.obj: \
- C:\Users\Miguel\Desktop\Nova\ pasta\Projeto2AED\Tests\Flight.cpp \
- C:\Users\Miguel\Desktop\Nova\ pasta\Projeto2AED\Tests\Flight.h \
+ C:\Users\Miguel\Desktop\projeto2\Projeto2AED\Tests\Flight.cpp \
+ C:\Users\Miguel\Desktop\projeto2\Projeto2AED\Tests\Flight.h \
  C:/PROGRA~1/JETBRA~1/CLION2~1.4/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/iostream \
  C:/PROGRA~1/JETBRA~1/CLION2~1.4/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/x86_64-w64-mingw32/bits/c++config.h \
  C:/PROGRA~1/JETBRA~1/CLION2~1.4/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/x86_64-w64-mingw32/bits/os_defines.h \

@@ -4,10 +4,15 @@
 #include <list>
 #include <vector>
 #include <iostream>
-
+#include <queue>
+#include <algorithm>
+#include "Airport.h"
 using namespace std;
 
 class Graph {
+    Graph(){}
+    Graph(const Graph&);
+    Graph& operator=(const Graph&);
     struct Edge {
         int dest;   // Destination node
         int weight; // An integer weight
@@ -23,14 +28,19 @@ class Graph {
     vector<Node> nodes; // The list of nodes being represented
 
 public:
-    // Constructor: nr nodes and direction (default: undirected)
+    friend Graph createGraph();
+    static Graph& getGraph(){
+        static Graph instance;
+        return instance;
+    }
+
     Graph(int nodes, bool dir = false);
-
-    // Add edge from source to destination with a certain weight
     void addEdge(int src, int dest, int weight = 1);
-
+    void addNode(Airport airport);
     // Depth-First Search: example implementation
     void dfs(int v);
+    void bfs(int v);
+    vector<int> predecessorbfs(int partida, int chegada);
 };
 
 #endif
