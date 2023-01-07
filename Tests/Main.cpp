@@ -36,6 +36,11 @@ unordered_set<Airline, Airline::hAirline, Airline::eqAirline> Main::readAirlines
         cout << "ERROR: File Not Open" << '\n';
     }
     input.close();
+    for(auto air :airlinesSet){
+        if(air.getCode()!="RPO" and air.getName()=="Rainbow Air Polynesia" and air.getCallsign()=="Rainbow Air" and air.getCountry()=="United States"){
+            airlinesSet.erase(air);
+        }
+    }
     return airlinesSet;
 }
 
@@ -89,6 +94,11 @@ unordered_set<Airport, Airport::hAirport, Airport::eqAirport> Main::readAirports
         cout << "ERROR: File Not Open" << '\n';
     }
     input.close();
+    for(auto air :airportsSet){
+        if(air.getCode()!="CIY" and air.getName()=="Comiso" and air.getCity()=="Comiso" and air.getCountry()=="Italy" and air.getLatitude()=="37.000000" and air.getLongitude()=="14.614400"){
+            airportsSet.erase(air);
+        }
+    }
     return airportsSet;
 }
 

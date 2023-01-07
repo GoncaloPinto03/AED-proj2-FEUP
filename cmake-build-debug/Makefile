@@ -56,10 +56,10 @@ RM = "C:\Program Files\JetBrains\CLion 2022.2.4\bin\cmake\win\bin\cmake.exe" -E 
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = "C:\Users\Miguel\Desktop\Nova pasta\Projeto2AED"
+CMAKE_SOURCE_DIR = C:\Users\Miguel\Desktop\proj2\Projeto2AED
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = "C:\Users\Miguel\Desktop\Nova pasta\Projeto2AED\cmake-build-debug"
+CMAKE_BINARY_DIR = C:\Users\Miguel\Desktop\proj2\Projeto2AED\cmake-build-debug
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -86,9 +86,9 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start "C:\Users\Miguel\Desktop\Nova pasta\Projeto2AED\cmake-build-debug\CMakeFiles" "C:\Users\Miguel\Desktop\Nova pasta\Projeto2AED\cmake-build-debug\\CMakeFiles\progress.marks"
+	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\Miguel\Desktop\proj2\Projeto2AED\cmake-build-debug\CMakeFiles C:\Users\Miguel\Desktop\proj2\Projeto2AED\cmake-build-debug\\CMakeFiles\progress.marks
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start "C:\Users\Miguel\Desktop\Nova pasta\Projeto2AED\cmake-build-debug\CMakeFiles" 0
+	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\Miguel\Desktop\proj2\Projeto2AED\cmake-build-debug\CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -175,6 +175,30 @@ Tests/Airport.s: Tests/Airport.cpp.s
 Tests/Airport.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\proj.dir\build.make CMakeFiles/proj.dir/Tests/Airport.cpp.s
 .PHONY : Tests/Airport.cpp.s
+
+Tests/City.obj: Tests/City.cpp.obj
+.PHONY : Tests/City.obj
+
+# target to build an object file
+Tests/City.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\proj.dir\build.make CMakeFiles/proj.dir/Tests/City.cpp.obj
+.PHONY : Tests/City.cpp.obj
+
+Tests/City.i: Tests/City.cpp.i
+.PHONY : Tests/City.i
+
+# target to preprocess a source file
+Tests/City.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\proj.dir\build.make CMakeFiles/proj.dir/Tests/City.cpp.i
+.PHONY : Tests/City.cpp.i
+
+Tests/City.s: Tests/City.cpp.s
+.PHONY : Tests/City.s
+
+# target to generate assembly for a file
+Tests/City.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\proj.dir\build.make CMakeFiles/proj.dir/Tests/City.cpp.s
+.PHONY : Tests/City.cpp.s
 
 Tests/Flight.obj: Tests/Flight.cpp.obj
 .PHONY : Tests/Flight.obj
@@ -263,6 +287,9 @@ help:
 	@echo ... Tests/Airport.obj
 	@echo ... Tests/Airport.i
 	@echo ... Tests/Airport.s
+	@echo ... Tests/City.obj
+	@echo ... Tests/City.i
+	@echo ... Tests/City.s
 	@echo ... Tests/Flight.obj
 	@echo ... Tests/Flight.i
 	@echo ... Tests/Flight.s

@@ -100,6 +100,7 @@ int Graph::minFlights(int source, int destination) {
                 nodes[w].visited = true;
                 // Store the number of flights taken to reach this neighbor
                 numFlights[w] = numFlights[u] + 1;
+
             }
         }
     }
