@@ -5,10 +5,10 @@ Graph::Graph(int num, bool dir) : n(num), hasDir(dir), nodes(num+1) {
 }
 
 // Add edge from source to destination with a certain weight
-void Graph::addEdge(int src, int dest, int weight) {
+void Graph::addEdge(int src, int dest, int weight, string airline) {
     if (src<1 || src>n || dest<1 || dest>n) return;
-    nodes[src].adj.push_back({dest, weight});
-    if (!hasDir) nodes[dest].adj.push_back({src, weight});
+    nodes[src].adj.push_back({dest, weight, airline});
+    if (!hasDir) nodes[dest].adj.push_back({src, weight, airline});
 }
 
 void Graph::addNode(Airport airport) {
@@ -32,7 +32,7 @@ void Graph::addFlight(const Flight &flight) {
     }
     // If both nodes were found, add an edge between them
     if (src != -1 && dest != -1) {
-        addEdge(src, dest, 1);
+        addEdge(src, dest, 1, flight.getAirline());
     }
 }
 
@@ -67,4 +67,51 @@ void Graph::bfs(int v) {
     }
 }
 
+int Graph::minFlights(int source, int destination) {
+    // Initialize a queue to store nodes to visit, and a vector to store the number of flights taken to reach each node
+    queue<int> q;
+    vector<int> numFlights(n+1, 0);
+
+    // Mark all nodes as unvisited
+    for (int i = 1; i <= n; i++) {
+        nodes[i].visited = false;
+    }
+
+    // Add the source node to the queue and mark it as visited
+    q.push(source);
+    nodes[source].visited = true;
+
+    // While there are still nodes to visit
+    while (!q.empty()) {
+        // Get the next node in the queue
+        int u = q.front();
+        q.pop();
+
+        // For each of its neighbors
+        for (auto e : nodes[u].adj) {
+            int w = e.dest;
+            if (!nodes[w].visited) {
+                // If the neighbor is the destination, return the number of flights taken to reach it
+                if (w == destination) {
+                    return numFlights[u] + 1;
+                }
+                // Otherwise, add the neighbor to the queue and mark it as visited
+                q.push(w);
+                nodes[w].visited = true;
+                // Store the number of flights taken to reach this neighbor
+                numFlights[w] = numFlights[u] + 1;
+            }
+        }
+    }
+    // If the destination was not reached, return -1 to indicate that it is not reachable from the source
+    return -1;
+}
+
+int Graph::findAirport(string code) {
+    for (int i = 1; i <= n; i++) {
+        if (nodes[i].airport.getCode() == code)
+            return i;
+    }
+    return -1;
+}
 

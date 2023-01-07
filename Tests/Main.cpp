@@ -167,6 +167,13 @@ void Main::printCities(unordered_set<City, City::hCity, City::eqCity> cities) {
 
 
 int Menu() {
+    Graph g(0, false);
+
+    unordered_set<Flight , Flight::hFlight  , Flight::eqFlight  > flights = Main::readFlights();
+    unordered_set<Airport, Airport::hAirport, Airport::eqAirport> airports = Main::readAirports();
+    unordered_set<Airline, Airline::hAirline, Airline::eqAirline> airlines = Main::readAirlines();
+    unordered_set<City, City::hCity, City::eqCity> cities = Main::readCities();
+
     int choice;
     do {
         cout << "\n 0. Ver companhias aereas \n 1. Ver voos(Aviso:demora tempo aprox 2min) \n 2. Ver aeroportos \n 3. Ver cidades \n 4. Mostrar percurso mais Rapido entre 2 Locais \n 5. Informacoes de aeroporto \n 6. Creditos\n 7. Exit\n\n";
@@ -174,35 +181,36 @@ int Menu() {
         switch (choice) {
             case 0:
             {
-                unordered_set<Airline, Airline::hAirline, Airline::eqAirline> airlines = Main::readAirlines();
                 Main::printAirlines(airlines);
                 break;
             }
             case 1:
             {
-                unordered_set<Flight, Flight::hFlight, Flight::eqFlight> flights= Main::readFlights();
                 Main::printFlights(flights);
                 break;
             }
             case 2:
             {
-                unordered_set<Airport, Airport::hAirport, Airport::eqAirport> airports = Main::readAirports();
                 Main::printAirports(airports);
                 break;
             }
             case 3:
             {
-                unordered_set<City, City::hCity, City::eqCity> cities = Main::readCities();
                 Main::printCities(cities);
                 break;
             }
             case 4:
             {
                 string partida, chegada;
-                cout << "Local de Partida: ";
+                cout << "Código do aeroporto de partida: ";
                 cin >> partida;
-                cout << "\nLocal de Chegada: ";
+                cout << "\nCódigo do aeroporto de chegada: ";
                 cin >> chegada;
+
+                int src = g.findAirport(partida);
+                int dest = g.findAirport(chegada);
+                int min = g.minFlights(src, dest);
+                cout << "O número mínimo de voos entre os aeroportos " << partida << "e " << chegada << " é de " << min << "." << endl;
                 break;
             }
             case 5:
