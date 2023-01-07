@@ -1,11 +1,16 @@
 #include "Main.h"
-#include <iostream>
-#include <fstream>
-#include <unordered_set>
-#include "Airport.h"
-#include "Airline.h"
 
 using namespace std;
+
+struct pair_hash {
+    template <class T1, class T2>
+    std::size_t operator()(const std::pair<T1, T2> &p) const {
+        auto h1 = std::hash<T1>{}(p.first);
+        auto h2 = std::hash<T2>{}(p.second);
+
+        return h1 ^ h2;
+    }
+};
 
 unordered_set<Airline, Airline::hAirline, Airline::eqAirline> Main::readAirlines() {
 
@@ -129,7 +134,39 @@ unordered_set<Flight, Flight::hFlight, Flight::eqFlight> Main::readFlights() {
     input.close();
     return flightsSet;
 }
+/*
+unordered_map<pair<string, string>, Flight, pair_hash> Main::readFlights2() {
+    unordered_map<pair<string, string>, Flight, pair_hash> flightsMap;
 
+    string filename = "../dataset/flights.csv";
+    Flight flight;
+    string source;
+    string target;
+    string airline;
+    string dummy;
+
+    ifstream input = ifstream(filename, ios_base::in);
+    if (input.is_open()) {
+        getline(input, dummy);
+        while (input.good()) {
+            getline(input, source, ',');
+            getline(input, target, ',');
+            getline(input, airline, '\n');
+
+            flight.setSource(source);
+            flight.setAirline(airline);
+            flight.setTarget(target);
+
+            flightsMap[{source, target}] = flight;
+        }
+    }
+    else {
+        cout << "ERROR: File Not Open" << '\n';
+    }
+    input.close();
+    return flightsMap;
+}
+*/
 unordered_set<City, City::hCity, City::eqCity> Main::readCities() {
 
     unordered_set<City, City::hCity, City::eqCity> citiesSet;
@@ -159,6 +196,12 @@ void Main::printFlights(unordered_set<Flight , Flight::hFlight  , Flight::eqFlig
     }
 }
 
+void printFlights2(unordered_map<pair<string, string>, Flight, pair_hash> flights){
+    for (auto &i : flights) {
+        cout << i.second.getSource() << ", " << i.second.getTarget() << ", " << i.second.getAirline() << "\n";
+    }
+}
+
 void Main::printCities(unordered_set<City, City::hCity, City::eqCity> cities) {
     for (auto &i : cities) {
         cout << i.getName() << ", " << i.getCountry() << "\n";
@@ -166,9 +209,10 @@ void Main::printCities(unordered_set<City, City::hCity, City::eqCity> cities) {
 }
 
 
+
 int Menu() {
     Graph g(0, false);
-
+    //unordered_map<pair<string, string>, Flight, pair_hash> flights = readFlights2();
     unordered_set<Flight , Flight::hFlight  , Flight::eqFlight  > flights = Main::readFlights();
     unordered_set<Airport, Airport::hAirport, Airport::eqAirport> airports = Main::readAirports();
     unordered_set<Airline, Airline::hAirline, Airline::eqAirline> airlines = Main::readAirlines();

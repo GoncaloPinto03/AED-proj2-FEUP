@@ -31,13 +31,16 @@ void City::setCountry() {
 }
 
 int City::hCity::operator()(const City &city) const {
-    string code = city.getName()+city.getCountry();
     int hashCode = 0;
-    for (int i = 0; i < code.length(); i++) {
-        hashCode += code[i] * pow(31, i);
+    for (int i = 0; i < city.name.length(); i++) {
+        hashCode += city.name[i] * pow(31, i);
+    }
+    for (int i = 0; i < city.country.length(); i++) {
+        hashCode += city.country[i] * pow(31, i);
     }
     return hashCode;
 }
+
 
 bool City::eqCity::operator()(const City &c1, const City &c2) const {
     return c1.name == c2.getName() && c1.getCountry()==c2.getCountry();
