@@ -2,15 +2,6 @@
 
 using namespace std;
 
-struct pair_hash {
-    template <class T1, class T2>
-    std::size_t operator()(const std::pair<T1, T2> &p) const {
-        auto h1 = std::hash<T1>{}(p.first);
-        auto h2 = std::hash<T2>{}(p.second);
-
-        return h1 ^ h2;
-    }
-};
 
 unordered_set<Airline, Airline::hAirline, Airline::eqAirline> Main::readAirlines() {
 
@@ -50,9 +41,8 @@ unordered_set<Airline, Airline::hAirline, Airline::eqAirline> Main::readAirlines
 
 
 unordered_set<Airport, Airport::hAirport, Airport::eqAirport> Main::readAirports() {
-
+    Graph g(0);
     unordered_set<Airport, Airport::hAirport, Airport::eqAirport> airportsSet;
-    Graph g(0, false);
 
     string filename = "../dataset/airports.csv";
     Airport airport;
@@ -84,13 +74,15 @@ unordered_set<Airport, Airport::hAirport, Airport::eqAirport> Main::readAirports
             airport.setLongitude(longitude);
 
             airportsSet.insert(airport);
-
             g.addNode(airport);
         }
+        /*
+        // the function readFlights takes to long...
         unordered_set<Flight, Flight::hFlight, Flight::eqFlight> flights = readFlights();
         for (auto &i : flights) {
             g.addFlight(i);
         }
+         */
     }
 
     else {
@@ -101,7 +93,6 @@ unordered_set<Airport, Airport::hAirport, Airport::eqAirport> Main::readAirports
 }
 
 unordered_set<Flight, Flight::hFlight, Flight::eqFlight> Main::readFlights() {
-
     unordered_set<Flight, Flight::hFlight, Flight::eqFlight> flightsSet;
 
     string filename = "../dataset/flights.csv";
@@ -124,7 +115,6 @@ unordered_set<Flight, Flight::hFlight, Flight::eqFlight> Main::readFlights() {
             flight.setAirline(airline);
             flight.setTarget(target);
 
-
             flightsSet.insert(flight);
         }
     }
@@ -134,39 +124,7 @@ unordered_set<Flight, Flight::hFlight, Flight::eqFlight> Main::readFlights() {
     input.close();
     return flightsSet;
 }
-/*
-unordered_map<pair<string, string>, Flight, pair_hash> Main::readFlights2() {
-    unordered_map<pair<string, string>, Flight, pair_hash> flightsMap;
 
-    string filename = "../dataset/flights.csv";
-    Flight flight;
-    string source;
-    string target;
-    string airline;
-    string dummy;
-
-    ifstream input = ifstream(filename, ios_base::in);
-    if (input.is_open()) {
-        getline(input, dummy);
-        while (input.good()) {
-            getline(input, source, ',');
-            getline(input, target, ',');
-            getline(input, airline, '\n');
-
-            flight.setSource(source);
-            flight.setAirline(airline);
-            flight.setTarget(target);
-
-            flightsMap[{source, target}] = flight;
-        }
-    }
-    else {
-        cout << "ERROR: File Not Open" << '\n';
-    }
-    input.close();
-    return flightsMap;
-}
-*/
 unordered_set<City, City::hCity, City::eqCity> Main::readCities() {
 
     unordered_set<City, City::hCity, City::eqCity> citiesSet;
@@ -196,12 +154,6 @@ void Main::printFlights(unordered_set<Flight , Flight::hFlight  , Flight::eqFlig
     }
 }
 
-void printFlights2(unordered_map<pair<string, string>, Flight, pair_hash> flights){
-    for (auto &i : flights) {
-        cout << i.second.getSource() << ", " << i.second.getTarget() << ", " << i.second.getAirline() << "\n";
-    }
-}
-
 void Main::printCities(unordered_set<City, City::hCity, City::eqCity> cities) {
     for (auto &i : cities) {
         cout << i.getName() << ", " << i.getCountry() << "\n";
@@ -211,16 +163,14 @@ void Main::printCities(unordered_set<City, City::hCity, City::eqCity> cities) {
 
 
 int Menu() {
-    Graph g(0, false);
-    //unordered_map<pair<string, string>, Flight, pair_hash> flights = readFlights2();
-    unordered_set<Flight , Flight::hFlight  , Flight::eqFlight  > flights = Main::readFlights();
+    Graph g(0);
     unordered_set<Airport, Airport::hAirport, Airport::eqAirport> airports = Main::readAirports();
     unordered_set<Airline, Airline::hAirline, Airline::eqAirline> airlines = Main::readAirlines();
     unordered_set<City, City::hCity, City::eqCity> cities = Main::readCities();
 
     int choice;
     do {
-        cout << "\n 0. Ver companhias aereas \n 1. Ver voos(Aviso:demora tempo aprox 2min) \n 2. Ver aeroportos \n 3. Ver cidades \n 4. Mostrar percurso mais Rapido entre 2 Locais \n 5. Informacoes de aeroporto \n 6. Creditos\n 7. Exit\n\n";
+        cout << "\n 0. Ver companhias aereas \n 1. Ver aeroportos \n 2. Ver cidades \n 3. Mostrar percurso mais Rapido entre 2 Locais \n 4. Informacoes de aeroporto \n 5. Creditos\n 6. Exit\n\n";
         cin >> choice;
         switch (choice) {
             case 0:
@@ -230,20 +180,15 @@ int Menu() {
             }
             case 1:
             {
-                Main::printFlights(flights);
+                Main::printAirports(airports);
                 break;
             }
             case 2:
             {
-                Main::printAirports(airports);
-                break;
-            }
-            case 3:
-            {
                 Main::printCities(cities);
                 break;
             }
-            case 4:
+            case 3:
             {
                 string partida, chegada;
                 cout << "Código do aeroporto de partida: ";
@@ -257,16 +202,16 @@ int Menu() {
                 cout << "O número mínimo de voos entre os aeroportos " << partida << "e " << chegada << " é de " << min << "." << endl;
                 break;
             }
-            case 5:
+            case 4:
             {
                 string aeroporto;
                 cout<<"De que aeroporto pretende obter as informaçoes? ";
                 cin>> aeroporto;
             }
-            case 6:
+            case 5:
                 cout << "Done by Goncalo Pinto, Miguel Figueiredo and Miguel Santos\n";
                 break;
-            case 7:
+            case 6:
                 return 0;
             default:
                 return 0;
