@@ -43,8 +43,6 @@ unordered_set<Airline, Airline::hAirline, Airline::eqAirline> Main::readAirlines
     }
     return airlinesSet;
 }
-
-
 unordered_set<Airport, Airport::hAirport, Airport::eqAirport> Main::readAirports() {
     Graph g(0);
     unordered_set<Airport, Airport::hAirport, Airport::eqAirport> airportsSet;
@@ -101,7 +99,6 @@ unordered_set<Airport, Airport::hAirport, Airport::eqAirport> Main::readAirports
     }
     return airportsSet;
 }
-
 unordered_set<Flight, Flight::hFlight, Flight::eqFlight> Main::readFlights() {
     unordered_set<Flight, Flight::hFlight, Flight::eqFlight> flightsSet;
 
@@ -134,7 +131,6 @@ unordered_set<Flight, Flight::hFlight, Flight::eqFlight> Main::readFlights() {
     input.close();
     return flightsSet;
 }
-
 unordered_set<City, City::hCity, City::eqCity> Main::readCities() {
 
     unordered_set<City, City::hCity, City::eqCity> citiesSet;
@@ -151,32 +147,29 @@ void Main::printAirlines(unordered_set<Airline, Airline::hAirline, Airline::eqAi
         cout << i.getCode() << ", " << i.getName() << ", " << i.getCallsign() << ", " << i.getCountry() << "\n";
     }
 }
-
 void Main::printAirports(unordered_set<Airport, Airport::hAirport, Airport::eqAirport> airports) {
     for (auto &i : airports) {
         cout << i.getCode() << ", " << i.getName() << ", " << i.getCity() << ", " << i.getCountry() << ", " << i.getLatitude() << ", " << i.getLongitude() << "\n";
     }
 }
-
 void Main::printFlights(unordered_set<Flight , Flight::hFlight  , Flight::eqFlight  > flights){
     for (auto &i : flights) {
         cout << i.getSource() << ", " << i.getTarget() << ", " << i.getAirline() << "\n";
     }
 }
-
 void Main::printCities(unordered_set<City, City::hCity, City::eqCity> cities) {
     for (auto &i : cities) {
         cout << i.getName() << ", " << i.getCountry() << "\n";
     }
 }
 
-
-
 int Menu() {
-    Graph g(0);
     unordered_set<Airport, Airport::hAirport, Airport::eqAirport> airports = Main::readAirports();
+    unordered_set<Flight, Flight::hFlight, Flight::eqFlight> flights =Main::readFlights();
     unordered_set<Airline, Airline::hAirline, Airline::eqAirline> airlines = Main::readAirlines();
     unordered_set<City, City::hCity, City::eqCity> cities = Main::readCities();
+    Graph g(airports.size());
+    g.fillgraph(airports,flights);
 
     int choice;
     do {
@@ -205,11 +198,7 @@ int Menu() {
                 cin >> partida;
                 cout << "\nCódigo do aeroporto de chegada: ";
                 cin >> chegada;
-
-                int src = g.findAirport(partida);
-                int dest = g.findAirport(chegada);
-                int min = g.minFlights(src, dest);
-                cout << "O número mínimo de voos entre os aeroportos " << partida << "e " << chegada << " é de " << min << "." << endl;
+                cout << "O número mínimo de voos entre os aeroportos " << partida << "e " << chegada << " é de " <<g.distance(partida,chegada) << "." << endl;
                 break;
             }
             case 4:

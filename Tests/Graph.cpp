@@ -11,13 +11,6 @@ void Graph::addEdge(int src, int dest, int weight, string airline) {
     if (!hasDir) nodes[dest].adj.push_back({src, weight, airline});
 }
 
-void Graph::addNode(Airport airport) {
-    n++;
-    Node node;
-    node.airport = airport;
-    nodes.push_back(node);
-}
-
 void Graph::addFlight(const Flight &flight) {
     // Find the source and target nodes using the airport codes
     int src = -1, dest = -1;
@@ -34,6 +27,26 @@ void Graph::addFlight(const Flight &flight) {
     if (src != -1 && dest != -1) {
         addEdge(src, dest, 1, flight.getAirline());
     }
+}
+
+void Graph::fillgraph(unordered_set<Airport, Airport::hAirport, Airport::eqAirport> airports, unordered_set<Flight, Flight::hFlight, Flight::eqFlight> flights){
+    while(!airports.empty()){
+        auto it=airports.begin();
+        addNode(*it);
+        it++;
+    }
+    while(!flights.empty()){
+        auto it=flights.begin();
+        addFlight(*it);
+        it++;
+    }
+}
+
+void Graph::addNode(Airport airport) {
+    n++;
+    Node node;
+    node.airport = airport;
+    nodes.push_back(node);
 }
 
 
@@ -66,6 +79,40 @@ void Graph::bfs(int v) {
         }
     }
 }
+void Graph::bfsdist(int v){
+    for (int i=1; i<=n; i++) {
+        nodes[i].visited = false;
+        nodes[i].distance=0;
+    }
+    queue<int> q; // queue of unvisited nodes
+    q.push(v);
+    nodes[v].visited = true;
+    nodes[v].distance=0;
+    while (!q.empty()) { // while there are still unvisited nodes
+        int u = q.front(); q.pop();
+        for (auto e : nodes[u].adj) {
+            int w = e.dest;
+            if (!nodes[w].visited) {
+                q.push(w);
+                nodes[w].visited = true;
+                nodes[w].distance=nodes[u].distance+1;
+            }
+        }
+    }
+}
+
+int Graph::distance(string astr, string bstr) {
+    int a=0,b=0;
+    for(int i=1;i<=n;i++){
+        if(nodes[i].airport.getCode()==astr)a=i;
+        if(nodes[i].airport.getCode()==bstr)b=i;
+    }
+    bfsdist(a);
+    if(!nodes[b].visited)return -1;
+    return nodes[b].distance;
+
+}
+
 
 int Graph::minFlights(int source, int destination) {
     // Initialize a queue to store nodes to visit, and a vector to store the number of flights taken to reach each node

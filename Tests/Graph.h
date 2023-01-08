@@ -8,20 +8,22 @@
 #include "Airport.h"
 #include "Flight.h"
 #include "Airline.h"
+#include <unordered_set>
 
 using namespace std;
 
 class Graph {
     struct Edge {
         int dest;   // Destination node
-        int weight;     // An integer weight
+        int weight=1;     // An integer weight
         string airline;
     };
 
     struct Node {
         Airport airport;
         list<Edge> adj; // The list of outgoing edges (to adjacent nodes)
-        bool visited;   // As the node been visited on a search?s
+        bool visited;
+        int distance;// As the node been visited on a search?s
     };
 
     int n;              // Graph size (vertices are numbered from 1 to n)
@@ -36,14 +38,15 @@ public:
     void addEdge(int src, int dest, int weight = 1, string airline = "");
     void addNode(Airport airport);
     void addFlight(const Flight &flight);
-
+    void fillgraph(unordered_set<Airport, Airport::hAirport, Airport::eqAirport> airports, unordered_set<Flight, Flight::hFlight, Flight::eqFlight> flights);
     // Depth-First Search: example implementation
     void dfs(int v);
     // Breadth-First Search: example implementation
     void bfs(int v);
+    void bfsdist(int v);
 
+    int distance(string astr,string bstring);
     int minFlights(int source, int destination);
-
     int findAirport(string code);
 };
 
